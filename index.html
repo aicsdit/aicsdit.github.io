@@ -81,7 +81,7 @@
           console.log("LED ON");
         }
                                                        
-        function offBtnClick() {
+        function offBtnClick(event) {
           set(ref(db, 'LED_STATUS'), 'OFF');
           console.log("LED OFF");
         }
@@ -95,5 +95,4 @@
 
 
     </body>
-</html>
 </html>
