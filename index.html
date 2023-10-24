@@ -1,36 +1,99 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>동의과학대학교 인공지능컴퓨터정보과</title>
-  </head>
-  <body>
-    <h2>AI를 활용한 무인이동체 개발 교육- 동의과학대학교 인공지능컴퓨터정보과 - </h2>
-    <h3> 학생 프로젝트 리스트 </h3>
-    
-    <ul>
-      <li><a href="https://hongseohyun.github.io/">홍서현</a></li>
-      <li><a href="https://cyber-steer.github.io/">장성익</a></li>
-      <li><a href="https://Muzi4.github.io">김건우</a></li>
-      <li><a href="https://seuljaehyuk.github.io/">설재혁</a></li>
-      <li><a href="https://okdoittttt.github.io">손옥무</a></li>
-      <li><a href="https://ikiki1008.github.io">오유경</a></li>
-      <li><a href="https://ljmroqortk.github.io/">이주명</a></li>
-      <li><a href="https://whitedwarf2.github.io/">강문호</a></li>
-      <li><a href="https://kimsinyoung2.github.io/">김신영</a></li>
-      <li><a href="https://josangwon.github.io/">조상원</a></li>
-      <li><a href="https://daryeong.github.io/">최다령</a></li>
-      <li><a href="https://minso00.github.io/">김민지</a></li>
-      <li><a href="https://heoheoyun.github.io/">허윤</a></li>
-      <li><a href=""></a></li>
-      <li><a href=""></a></li>
-      <li><a href=""></a></li>
-      <li><a href=""></a></li>
-      <li><a href=""></a></li>
-      <li><a href=""></a></li>
-      <li><a href=""></a></li>
-      <li><a href=""></a></li>
-      
-    </ul>
-  </body>
+    <head>
+        <meta charset="utf-8">
+        <title>nodeMCU - Firebase</title>
+        <style>
+            .on-button {
+              background-color: red;
+              border: none;
+              color: white;
+              padding: 15px 30px;
+              text-align: center;
+              text-decoration: none;
+              display: inline-block;
+              font-size: 30px;
+              margin: 4px 2px;
+              cursor: pointer;
+            }
+            </style>
+            <style>
+            .off-button {
+              background-color: blue;
+              border: none;
+              color: white;
+              padding: 15px 30px;
+              text-align: center;
+              text-decoration: none;
+              display: inline-block;
+              font-size: 30px;
+              margin: 4px 2px;
+              cursor: pointer;
+            }
+            
+          </style>
+    </head>
+    <body>
+        <h2>ToT Cloud Remote LED Control Wep App</h2>
+        <h1 id="OUT_TEXT"></h1>
+        
+        <button class="on-button" id = "onBtn" >LED ON</button>
+        <button class="off-button" id = "offBtn" >LED OFF</button>
+
+        <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-analytics.js";
+
+        import { getDatabase, ref, set, get, onValue, child} from "https://www.gstatic.com/firebasejs/9.5.0/firebase-database.js";
+
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyDbYTsiuUI7IIQ12zefAzBxWn6KuKOAR1Y",
+            authDomain: "fir-led-control-1ddb6.firebaseapp.com",
+            databaseURL: "https://fir-led-control-1ddb6-default-rtdb.firebaseio.com",
+            projectId: "fir-led-control-1ddb6",
+            storageBucket: "fir-led-control-1ddb6.appspot.com",
+            messagingSenderId: "1057751920144",
+            appId: "1:1057751920144:web:68840f2d9fa14d3dba6495",
+            measurementId: "G-XJBVSERB9D"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+
+        const db = getDatabase(app);
+        console.log(db);
+
+        var OnButton = document.getElementById("onBtn");
+        OnButton.addEventListener("click", onBtnClick, false);
+
+        var OffButton = document.getElementById("offBtn");
+        OffButton.addEventListener("click", offBtnClick, false);
+
+        function onBtnClick(event) {
+          set(ref(db, 'LED_STATUS'), 'ON');
+          console.log("LED ON");
+        }
+                                                       
+        function offBtnClick() {
+          set(ref(db, 'LED_STATUS'), 'OFF');
+          console.log("LED OFF");
+        }
+
+        const dbRef = ref(db, 'LED_STATUS');
+        onValue(dbRef, (snapshot) => {
+            console.log(snapshot.val());
+            OUT_TEXT.innerText = 'LED is ' + snapshot.val();
+        })
+        </script>
+
+
+    </body>
+</html>
 </html>
